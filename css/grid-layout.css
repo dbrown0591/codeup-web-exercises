@@ -1,12 +1,22 @@
-
+*{
+    box-sizing: border-box;
+}
 .container{
+    min-height: 100vh;
     margin: 0 auto;
     width: 80%;
     max-width: 1200px;
+
+
+}
+
+body{
+    background-color: aqua;
 }
 
 .row{
     width: 100%;
+
 }
 
 .row:after{
@@ -17,14 +27,37 @@
 
 .column{
     float: left;
-    padding: 10px;
+    border: 1px solid black;
+    padding: 20px;
+   }
+
+
+.spacing{
+    margin-bottom: 20px;
 }
+
 
 .column.one-third{
     width: 33.33%;
-
+    background-color: orange;
 }
 
 .column.one-half{
     width: 50%;
+    background-color: purple;
+}
+
+.column.one-forth{
+    width: 25%;
+    background-color: yellow;
+}
+
+.column.one-sixth{
+    width: 16.6666%;
+    background-color: red;
+}
+
+.column.one-eighth{
+    width: 12.5%;
+    background-color: green;
 }
