@@ -1,3 +1,35 @@
 body{
-    background-color: blue;
+    margin: 10px;
 }
+
+h1{
+    /*border: 1px;*/
+    opacity: 0.7;
+    /*position: relative;*/
+    /*top: 175px;*/
+    /*left: 100px;*/
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+}
+
+/*.panel{*/
+  /*!*background-color: aqua;*!*/
+/*}*/
+
+/*.light-blue-bg{*/
+    /*background-color:#a6e1ec;*/
+    /*!*padding: 1px;*!*/
+/*}*/
+
+/*body{*/
+    /*box-sizing: border-box;*/
+    /*margin:0;*/
+/*}*/
+
+.jumbotron{
+    background-image: url(../img/pizza.png);
+}
+
