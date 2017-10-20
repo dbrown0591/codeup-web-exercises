@@ -15,6 +15,7 @@ function sayHello(name){
 console.log(sayHello("Damion"));
 
 
+
 /**
  * TODO:
  * Call the function 'sayHello' and pass your name as a string literal argument.
@@ -25,6 +26,7 @@ console.log(sayHello("Damion"));
 var helloMessage = sayHello("Damion");
 console.log(helloMessage);
 
+
 /**
  * TODO:
  * Store your name as a string in a variable named 'myName', and pass that
@@ -34,6 +36,8 @@ console.log(helloMessage);
 
 var myName = "Damion";
 console.log(sayHello(myName));
+
+
 
 // Don't modify the following line, it generates a random number between 1 and 3
 // and stores it in a variable named random
@@ -60,6 +64,9 @@ function isTwo(number){
     return 2 == number;
 }
 console.log(isTwo(random));
+
+
+
 /**
  * TODO:
  * Create a function named 'calculateTip' to calculate a tip on a bill at a

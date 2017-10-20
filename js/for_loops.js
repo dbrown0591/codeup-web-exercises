@@ -16,13 +16,24 @@ showMultiplicationTable(7);
 
 
 for(var i=1; i<=9; i++) {
-    var message = "";
+    var message = ""
     for (var x = 1; x <= i; x++) {
-       message += i;
+       message += i
 
     }
     console.log(message);
 }
+
+var message = "";
+for(var i=1; i<=9; i++) {
+    message += "1";
+    console.log(i * parseInt(message));
+// for (var x = 1; x <= i; x++) {
+    //
+    //
+    // }
+}
+
 
 
 
@@ -46,11 +57,17 @@ for (var i = 1; i <= 10; i++){
 //Create a for loop that descends numbers 100 to 5
 //
 var i =0;
-for ( i = 100; i>=5; i-=5){
+for ( i = 100; i>=5; i--){
 
+    if()
     console.log(i);
 }
-
+//
+// var i = 0;
+//
+// for (i = 10; i > 0; i--){
+//     console.log(i);
+// }
 
 
 
