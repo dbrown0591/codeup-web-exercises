@@ -1,0 +1,109 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>Jquery_Faq</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<div>
+    <h1 id = "hideElement">Would you like to sign up for our news letter?</h1>
+    <span id = "hideXElement">X</span>
+
+</div>
+
+
+
+
+<h1>National Park FAQ's</h1>
+<h2>Would you like to register?</h2>
+
+
+<h3>Yosemite National Park</h3>
+<ul class = "hideMe">
+    <li>Yosemite National Park is best known for its waterfalls,<br>
+        but within its nearly 1,200 square miles.</li>
+    <li>The park, which is managed by the National Park Service,<br>
+        covers an area of 747,956 acres.</li>
+    <li>On average, about 4 million people visit Yosemite each year.</li>
+    <li>The park set a visitation record in 2016,<br>
+        surpassing 5 million visitors for the first time in its history.</li>
+</ul>
+
+<h3>Yellowstone National Park</h3>
+<ul class = "hideMe">
+    <li>Yellowstone National Park is a national park<br>
+        located in the U.S. states of Wyoming, Montana, and Idaho.</li>
+    <li>It was established by the U.S. Congress and signed into law<br>
+        by President Ulysses S. Grant on March 1, 1872.</li>
+    <li>Yellowstone was the first National Park in the U.S. and<br>
+        is also widely held to be the first national park in the world</li>
+    <li>The park is known for its wildlife and its many geothermal features,<br>
+        especially Old Faithful geyser, one of its most popular features.</li>
+</ul>
+
+<h3>Grand Canyon National Park</h3>
+<ul class = "hideMe">
+    <li>Grand Canyon National Park is the 15th site in the United States<br>
+        to have been named a national park.</li>
+    <li>The park's central feature is the Grand Canyon, a gorge of the<br>
+        Colorado River, which is often considered one of the Wonders of the World.</li>
+    <li>The park, which covers 1,217,262 acres (1,901.972 sq mi; 492,608 ha; 4,926.08 km2)<br>
+        of unincorporated area in Coconino and Mohave counties, received nearly six million<br>
+        recreational visitors in 2016, which is the second highest count of all U.S. national<br>
+        parks after Great Smoky Mountains National Park.[4]</li>
+    <li>"Grand Canyon" was officially designated a national park on February 26, 1919, though<br>
+        the landmark had been well known to Americans for over thirty years prior.</li>
+</ul>
+
+<button id="highLightButton">Highlight</button>
+
+
+
+
+<script src = "js/jquery-2.2.4.js"></script>
+<script>
+
+    $(document).ready(function(){
+        $('.hideMe').hide();
+
+        $('h3').click(function() {
+            $('.hideMe').slideToggle();
+        });
+
+        $('#hideXElement').click(function() {
+            $('#hideElement').hide();
+        });
+
+        $('h2').hide();
+        $('h2').fadeIn(8000);
+    });
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
