@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax Blog</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div id = "post"></div>
+
+<script src = "./js/jquery-2.2.4.js"></script>
+
+<script>
+
+    $(document).ready(function(){
+
+        $.ajax({
+            url:"data/blog.json",
+            type:"GET"
+        })
+
+//        .fail(function(jqXhr, status, error) {
+//            alert("There was an error!");
+//        })
+
+        .done(function(postBlog){
+            postBlog.forEach(function(element,index){
+                var blog = "";
+
+                blog += "<h1>" + element.title + "</h1>";
+                blog += "<h4>" + element.content + "</h4>";
+                blog += "<h4>" + element.categories + "</h4>";
+                blog += "<h5>" + element.date + "</h5>";
+//                console.log(postBlog);
+                $("#post").append(blog);
+            })
+
+        })
+
+    });
+
+
+
+</script>
+
+
+</body>
+</html>
