@@ -2,9 +2,255 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Weather Map</title>
+
+    <style>
+        #map-canvas {
+            width: 950px;
+            height: 481px;
+            position: relative;
+            left: 85px;
+            position: relative;
+            top: 30px;
+        }
+
+        img{
+            height: 75px;
+            width:75px;
+        }
+
+
+    /*body {*/
+        /*background-image: url("./img/Weather5.jpg");*/
+        /*padding: 10px;*/
+        /*height: 850px;*/
+        /*margin-left: 50px;*/
+    /*}*/
+
+    h1{
+        position: relative;
+        left: 30px;
+        font-size: 80px;
+        color: white;
+        text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+    }
+
+        .day{
+            float: left;
+            width: 30%;
+            line-height:20%;
+            background-color: opacity;
+            border: opacity;
+            text-align: center;
+            position: relative;
+            left: 40px;
+
+        }
+
+        #coordinates{
+            position: relative;
+            left: 50px;
+        }
+        #getInfo{
+            position: relative;
+            top: 10px;
+        }
+
+        #coordinates{
+            position: relative;
+            top: 50px;
+        }
+        video#cloudVid {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+            background: url(Clouds_Fly_By.jpg) no-repeat;
+            background-size: cover;
+        }
+    </style>
+
 </head>
 <body>
-$END$
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJiXwUij_Ud9pxyjaQ4798_rrPd0uWNiY"></script>
+
+<video playsinline autoplay muted loop poster="img/Clouds_Fly_By.jpg" id="cloudVid">
+    <source src="img/Clouds_Fly_By.mp4" type="video/mp4">
+</video>
+
+<main class = "container">
+    <h1>Weather Application</h1>
+    <h2 id = "changeCity" >San Antonio</h2>
+    <div id = "forecast"></div>
+    <div id = "map-canvas" ></div>
+</main>
+
+<form id = "coordinates">
+    Latitude:<br>
+    <input type="text" name="latitude" id="latitude"><br>
+    Longitude:<br>
+    <input  type="text" name="longitude" id="longitude">
+    <br>
+    <button type="button" id= "getInfo">Push</button>
+</form>
+
+<script src = "./js/jquery-2.2.4.js"></script>
+<script type="text/javascript">
+    "use strict";
+
+    // Set our map options
+    var mapOptions = {
+// Set the zoom level
+        zoom: 10,
+
+//            // This sets the center of the map at our location
+            center: {
+                lat:  29.426791,
+                lng: -98.489602
+
+            },
+
+//
+// Show this map in satellite view
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+    };
+
+    // Render the map
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+
+    // Include code from previous example
+
+    // Set our address to geocode
+    var address = "300 Alamo Plaza, San Antonio, TX, 78205";
+
+    // Init geocoder object
+    var geocoder = new google.maps.Geocoder();
+
+    // Geocode our address
+    geocoder.geocode({ "address": address }, function(results, status) {
+
+// Check for a successful result
+        if (status == google.maps.GeocoderStatus.OK) {
+
+// Recenter the map over the address
+            map.setCenter(results[0].geometry.location);
+        } else {
+
+// Show an error message with the status if our request fails
+            alert("Geocoding was not successful - STATUS: " + status);
+        }
+    });
+
+    var codeup = { lat: 29.426791, lng: -98.489602 };
+
+
+    // Add the marker to our existing map
+    var marker = new google.maps.Marker({
+        position: codeup,
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP
+    });
+
+    marker.addListener('dragend', function(){
+        map.setZoom(8);
+
+        map.setCenter(marker.getPosition());
+            console.log(marker.getPosition());
+        var lat = marker.getPosition().lat();
+        var lng = marker.getPosition().lng();
+
+        getForecast(lat,lng)
+    });
+
+    // Create a new infoWindow object with content
+    var infowindow = new google.maps.InfoWindow({
+        content: "Changing the world, one programmer at a time."
+    });
+
+    // Open the window using our map and marker
+    infowindow.open(map, marker);
+
+
+    //    })();
+
+
+        function getForecast(lat,lng) {
+            $.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
+                APPID: "7f8e3aa0aad113510e0c1eaafd1c17b8",
+                lat: lat,
+                lon: lng,
+                units: "imperial",
+                cnt: 3
+            })
+                .done(function (data) {
+                    console.log(data);
+                    var todayWeather = " ";
+                    data.list.forEach(function (element) {
+                        todayWeather += "<div class='day'><strong><p>" + element.temp.max + "&#176/ " + element.temp.min + "&#176</p></strong>";
+                        todayWeather += "<img src='http://openweathermap.org/img/w/" + element.weather[0].icon + ".png'>";
+                        todayWeather += "<p>" + "Clouds: " + element.clouds + "</p>";
+                        todayWeather += "<p>" + "Humidity: " + element.humidity + "</p>";
+                        todayWeather += "<p>" + "Wind: " + element.speed + "</p>";
+                        todayWeather += "<p>" + "Pressure: " + element.pressure + "</p></div>";
+                    $("#changeCity").html(data.city.name);
+                    });
+                    $("#forecast").html(todayWeather);
+                });
+        }
+            getForecast(29.426791, -98.489602);
+
+        $("#getInfo").click(function(event) {
+            var lati =$('#latitude').val();
+            var long =$('#longitude').val();
+            event.preventDefault();
+//            console.log(lati);
+//            console.log(long);
+
+
+            $.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
+                APPID: "7f8e3aa0aad113510e0c1eaafd1c17b8",
+                lat: lati,
+                lon: long,
+                units: "imperial",
+                cnt: 3
+            })
+                .done(function(data) {
+                    console.log(data);
+                    var todayWeather = " ";
+                    data.list.forEach(function (element) {
+                        todayWeather += "<div class='day'><strong><p>" + element.temp.max + "&#176/ " + element.temp.min + "&#176</p></strong>";
+                        todayWeather += "<img src='http://openweathermap.org/img/w/" + element.weather[0].icon + ".png'>";
+                        todayWeather += "<p>" + "Clouds: " + element.clouds + "</p>";
+                        todayWeather += "<p>" + "Humidity: " + element.humidity + "</p>";
+                        todayWeather += "<p>" + "Wind: " + element.speed + "</p>";
+                        todayWeather += "<p>" + "Pressure: " + element.pressure + "</p></div>";
+
+                    });
+                    $("#forecast").html(todayWeather);
+                });
+        });
+//    });
+
+
+</script>
+
+
+ <!--Script to show address on map-->
+
+
+
 </body>
 </html>
+
+
